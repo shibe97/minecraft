@@ -1,0 +1,35 @@
+{
+  "name": "minecraft",
+  "version": "0.0.1",
+  "description": "minecraft",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shibe97/minecraft.git"
+  },
+  "author": "shibe97",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shibe97/minecraft/issues"
+  },
+  "homepage": "https://github.com/shibe97/minecraft#readme",
+  "dependencies": {
+    "three": "^0.83.0",
+    "three.js": "^0.77.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "eslint": "^3.13.1",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-import": "^2.2.0",
+    "webpack": "^1.14.0"
+  }
+}
