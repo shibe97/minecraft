@@ -4,19 +4,19 @@ console.log(THREE);
 const main = function() {
   //シーンとカメラの準備
   const scene  = new THREE.Scene(),//シーン
-    width = 1000,//横幅
-    height = 1000,//高さ
+    width = 1000,
+    height = 1000,
     fov = 60,//画角
-    aspect = width / height,//縦横比
-    near = 1,//ニアークリップの距離（コレより近い領域は表示されない） 
-    far = 1000,//ファーークリップの距離（コレより遠い領域は表示されない）
+    aspect = width / height,
+    near = 1, //ニアークリップの距離（コレより近い領域は表示されない） 
+    far = 1000, //ファーークリップの距離（コレより遠い領域は表示されない）
     camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     
   //カメラは初期値では0,0,0（x,y,z）で真ん中に位置するオブジェクトを置いたときに見やすいように少し引いて
   camera.position.set(0, 0, 50);
 
   const renderer = new THREE.WebGLRenderer();
-  renderer.setSize(width, height);//レンダリングする箇所
+  renderer.setSize(width, height); //レンダリングする箇所
   document.body.appendChild(renderer.domElement);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff);//白

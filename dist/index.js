@@ -59,14 +59,11 @@
 	  var scene = new _three2.default.Scene(),
 	      //シーン
 	  width = 1000,
-	      //横幅
-	  height = 1000,
-	      //高さ
-	  fov = 60,
+	      height = 1000,
+	      fov = 60,
 	      //画角
 	  aspect = width / height,
-	      //縦横比
-	  near = 1,
+	      near = 1,
 	      //ニアークリップの距離（コレより近い領域は表示されない） 
 	  far = 1000,
 	      //ファーークリップの距離（コレより遠い領域は表示されない）
