@@ -42081,8 +42081,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var geometry = new _three2.default.CubeGeometry(10, 10, 10);
-	var material = new _three2.default.MeshPhongMaterial({ color: 0xffffff });
+	var loader = new _three2.default.TextureLoader();
+	loader.crossOrigin = '*';
+
+	var geometry = new _three2.default.BoxGeometry(10, 10, 10);
+	//const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 
 	var createMap = exports.createMap = function createMap(scene) {
 	  for (var i = 0; i < 10; i++) {
@@ -42093,9 +42096,12 @@
 	};
 
 	var createBlock = function createBlock(scene, x, y, z) {
-	  var mesh = new _three2.default.Mesh(geometry, material);
-	  mesh.position.set(x, y, z);
-	  scene.add(mesh);
+	  loader.load('textures/blocks/brick.png', function (texture) {
+	    //const mesh = new THREE.Mesh(geometry, material);
+	    var mesh = new _three2.default.Mesh(geometry, new _three2.default.MeshLambertMaterial({ map: texture }));
+	    mesh.position.set(x, y, z);
+	    scene.add(mesh);
+	  });
 	};
 
 /***/ }

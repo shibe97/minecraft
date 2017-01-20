@@ -1,7 +1,10 @@
 import THREE from 'three.js';
 
-const geometry = new THREE.CubeGeometry(10, 10, 10);
-const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+const loader = new THREE.TextureLoader();
+loader.crossOrigin = '*';
+
+const geometry = new THREE.BoxGeometry(10, 10, 10);
+//const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 
 export const createMap = (scene) => {
   for (let i = 0; i < 10; i++) {
@@ -12,7 +15,10 @@ export const createMap = (scene) => {
 };
 
 const createBlock = (scene, x, y, z) => {
-  const mesh = new THREE.Mesh(geometry, material);
-  mesh.position.set(x, y, z);
-  scene.add(mesh);
+  loader.load('textures/blocks/brick.png', (texture) => {
+    //const mesh = new THREE.Mesh(geometry, material);
+    const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ map: texture }));
+    mesh.position.set(x, y, z);
+    scene.add(mesh);
+  });
 };
