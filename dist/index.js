@@ -54,6 +54,8 @@
 
 	var _keyEvents2 = _interopRequireDefault(_keyEvents);
 
+	var _map = __webpack_require__(6);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var main = function main() {
@@ -70,9 +72,7 @@
 	  far = 1000,
 	      //ファーークリップの距離（コレより遠い領域は表示されない）
 	  camera = new _three2.default.PerspectiveCamera(fov, aspect, near, far);
-
-	  //カメラは初期値では0,0,0（x,y,z）で真ん中に位置するオブジェクトを置いたときに見やすいように少し引いて
-	  camera.position.set(0, 0, 50);
+	  camera.position.set(0, 50, 100);
 
 	  var renderer = new _three2.default.WebGLRenderer();
 	  renderer.setSize(width, height); //レンダリングする箇所
@@ -82,12 +82,7 @@
 	  directionalLight.position.set(0, 0.7, 0.7); //光源の位置
 	  scene.add(directionalLight); //シーンにセット
 
-	  var geometry = new _three2.default.CubeGeometry(10, 10, 10),
-	      //図形（四角）
-	  material = new _three2.default.MeshPhongMaterial({ color: 0xff0000 }),
-	      //材質（赤）
-	  mesh = new _three2.default.Mesh(geometry, material); //図形と材質を合わせた奴
-	  scene.add(mesh); //シーンにセット
+	  (0, _map.createMap)(scene);
 
 	  renderer.render(scene, camera);
 
@@ -42067,6 +42062,40 @@
 	      break;
 	  }
 	  renderer.render(scene, camera);
+	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.createMap = undefined;
+
+	var _three = __webpack_require__(1);
+
+	var _three2 = _interopRequireDefault(_three);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var geometry = new _three2.default.CubeGeometry(10, 10, 10);
+	var material = new _three2.default.MeshPhongMaterial({ color: 0xffffff });
+
+	var createMap = exports.createMap = function createMap(scene) {
+	  for (var i = 0; i < 10; i++) {
+	    for (var j = 0; j < 10; j++) {
+	      createBlock(scene, -50 + i * 10, -5, -100 + j * 10);
+	    }
+	  }
+	};
+
+	var createBlock = function createBlock(scene, x, y, z) {
+	  var mesh = new _three2.default.Mesh(geometry, material);
+	  mesh.position.set(x, y, z);
+	  scene.add(mesh);
 	};
 
 /***/ }
