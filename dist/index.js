@@ -42085,7 +42085,7 @@
 	loader.crossOrigin = '*';
 
 	var geometry = new _three2.default.BoxGeometry(10, 10, 10);
-	//const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+	//const material = new THREE.MeshPhongMaterial({ color: 0xffffff })
 
 	var createMap = exports.createMap = function createMap(scene) {
 	  for (var i = 0; i < 10; i++) {
