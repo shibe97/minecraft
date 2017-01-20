@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/shibe97/minecraft#readme",
   "dependencies": {
-    "three": "^0.83.0",
+    "keycode": "^2.1.8",
     "three.js": "^0.77.1"
   },
   "devDependencies": {

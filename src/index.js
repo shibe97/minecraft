@@ -1,11 +1,11 @@
 import THREE from 'three.js';
-console.log(THREE);
+import keyEvents from './keyEvents';
 
 const main = function() {
   //シーンとカメラの準備
   const scene  = new THREE.Scene(),//シーン
-    width = 1000,
-    height = 1000,
+    width = window.innerWidth,
+    height = window.innerHeight,
     fov = 60,//画角
     aspect = width / height,
     near = 1, //ニアークリップの距離（コレより近い領域は表示されない） 
@@ -28,21 +28,11 @@ const main = function() {
   mesh = new THREE.Mesh(geometry, material);//図形と材質を合わせた奴
   scene.add(mesh);//シーンにセット
 
-  renderer.render(scene, camera);//レンダラーにシーンとカメラをレンダリングさせる
+  renderer.render(scene, camera);
 
-  //表示
-  (function renderLoop() {
-    //自分で自分を呼び出すことでアニメーションしてレンダリング...を繰り返す
-    requestAnimationFrame(renderLoop);
-    //自転の値を少し動かす
-    mesh.rotation.set(
-      0,
-      mesh.rotation.y + 0.01,
-      mesh.rotation.x + 0.01
-    )
-    //レンダリング
-    renderer.render(scene, camera);
-  })();
+  // set key events
+  document.addEventListener('keydown', (e) => keyEvents(e, renderer, scene, camera));
 }
+
 //DOMの準備ができたらメインを読み込む
 window.addEventListener('DOMContentLoaded', main, false);
