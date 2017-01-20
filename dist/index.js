@@ -42082,7 +42082,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var loader = new _three2.default.TextureLoader();
-	loader.crossOrigin = '*';
 
 	var geometry = new _three2.default.BoxGeometry(10, 10, 10);
 	//const material = new THREE.MeshPhongMaterial({ color: 0xffffff })

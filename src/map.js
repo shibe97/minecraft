@@ -1,7 +1,6 @@
 import THREE from 'three.js';
 
 const loader = new THREE.TextureLoader();
-loader.crossOrigin = '*';
 
 const geometry = new THREE.BoxGeometry(10, 10, 10);
 //const material = new THREE.MeshPhongMaterial({ color: 0xffffff })
