@@ -50,11 +50,11 @@
 
 	var _three2 = _interopRequireDefault(_three);
 
-	var _keyEvents = __webpack_require__(5);
+	var _keyEvents = __webpack_require__(3);
 
 	var _keyEvents2 = _interopRequireDefault(_keyEvents);
 
-	var _map = __webpack_require__(6);
+	var _map = __webpack_require__(5);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72,7 +72,7 @@
 	  far = 1000,
 	      //ファーークリップの距離（コレより遠い領域は表示されない）
 	  camera = new _three2.default.PerspectiveCamera(fov, aspect, near, far);
-	  camera.position.set(0, 50, 100);
+	  camera.position.set(0, 20, 0);
 
 	  var renderer = new _three2.default.WebGLRenderer();
 	  renderer.setSize(width, height); //レンダリングする箇所
@@ -41877,7 +41877,41 @@
 
 
 /***/ },
-/* 3 */,
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _keycode = __webpack_require__(4);
+
+	var _keycode2 = _interopRequireDefault(_keycode);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (e, renderer, scene, camera) {
+	  var p = camera.position;
+	  switch ((0, _keycode2.default)(e)) {
+	    case 'left':
+	      p.set(p.x - 10, p.y, p.z);
+	      break;
+	    case 'right':
+	      p.set(p.x + 10, p.y, p.z);
+	      break;
+	    case 'up':
+	      p.set(p.x, p.y, p.z - 10);
+	      break;
+	    case 'down':
+	      p.set(p.x, p.y, p.z + 10);
+	      break;
+	  }
+	  renderer.render(scene, camera);
+	};
+
+/***/ },
 /* 4 */
 /***/ function(module, exports) {
 
@@ -42038,69 +42072,105 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.createMap = undefined;
 
-	var _keycode = __webpack_require__(4);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _keycode2 = _interopRequireDefault(_keycode);
+	var _three = __webpack_require__(1);
+
+	var _three2 = _interopRequireDefault(_three);
+
+	var _blocks = __webpack_require__(6);
+
+	var _blocks2 = _interopRequireDefault(_blocks);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = function (e, renderer, scene, camera) {
-	  var p = camera.position;
-	  switch ((0, _keycode2.default)(e)) {
-	    case 'left':
-	      p.set(p.x - 1, p.y, p.z);
-	      break;
-	    case 'right':
-	      p.set(p.x + 1, p.y, p.z);
-	      break;
-	    case 'up':
-	      p.set(p.x, p.y, p.z - 1);
-	      break;
-	    case 'down':
-	      p.set(p.x, p.y, p.z + 1);
-	      break;
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	//const loader = new THREE.TextureLoader();
+
+	var geometry = new _three2.default.BoxGeometry(10, 10, 10);
+
+	var X_LENGTH = 100;
+	var Y_LENGTH = 100;
+
+	/*
+	class World {
+	  constructor(name = 'My World', size = { x: 100, y: 100 }) {
+	    this.name = name;
+	    this.size = size;
 	  }
-	  renderer.render(scene, camera);
+	}*/
+
+	var Block = function () {
+	  function Block(x, y, z, type) {
+	    _classCallCheck(this, Block);
+
+	    this.x = x;
+	    this.y = y;
+	    this.z = z;
+	    this.type = type;
+	  }
+
+	  _createClass(Block, [{
+	    key: 'setMesh',
+	    value: function setMesh() {
+	      var material = new _three2.default.MeshPhongMaterial({ color: _blocks2.default[this.type].color });
+	      this.mesh = new _three2.default.Mesh(geometry, material);
+	      this.mesh.position.set(this.x, this.y, this.z);
+	    }
+	  }, {
+	    key: 'getMesh',
+	    value: function getMesh() {
+	      return this.mesh;
+	    }
+	  }]);
+
+	  return Block;
+	}();
+
+	var createMap = exports.createMap = function createMap(scene) {
+	  for (var i = 0; i < X_LENGTH; i++) {
+	    for (var j = 0; j < Y_LENGTH; j++) {
+	      var type = Math.random() > 0.5 ? 'dirt' : 'cobblestone';
+	      var block = new Block(-X_LENGTH * 10 / 2 + i * 10, -5, -Y_LENGTH * 10 / 2 + j * 10, type);
+	      block.setMesh();
+	      scene.add(block.getMesh());
+	    }
+	  }
 	};
+
+	/*
+	const createBlock = (scene, x, y, z) => {
+	  loader.load('textures/blocks/brick.png', (texture) => {
+	    const mesh = new THREE.Mesh(geometry, material);
+	    //const mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ map: texture }));
+	    mesh.position.set(x, y, z);
+	    scene.add(mesh);
+	  });
+	};*/
 
 /***/ },
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.createMap = undefined;
-
-	var _three = __webpack_require__(1);
-
-	var _three2 = _interopRequireDefault(_three);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var loader = new _three2.default.TextureLoader();
-
-	var geometry = new _three2.default.BoxGeometry(10, 10, 10);
-	//const material = new THREE.MeshPhongMaterial({ color: 0xffffff })
-
-	var createMap = exports.createMap = function createMap(scene) {
-	  for (var i = 0; i < 10; i++) {
-	    for (var j = 0; j < 10; j++) {
-	      createBlock(scene, -50 + i * 10, -5, -100 + j * 10);
-	    }
+	exports.default = {
+	  'cobblestone': {
+	    id: '1',
+	    name: 'cobblestone',
+	    color: 0xcccccc
+	  },
+	  'dirt': {
+	    id: '2',
+	    name: 'dirt',
+	    color: 0xaaffaa
 	  }
-	};
-
-	var createBlock = function createBlock(scene, x, y, z) {
-	  loader.load('textures/blocks/brick.png', function (texture) {
-	    //const mesh = new THREE.Mesh(geometry, material);
-	    var mesh = new _three2.default.Mesh(geometry, new _three2.default.MeshLambertMaterial({ map: texture }));
-	    mesh.position.set(x, y, z);
-	    scene.add(mesh);
-	  });
 	};
 
 /***/ }

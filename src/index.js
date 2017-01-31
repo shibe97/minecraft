@@ -12,7 +12,7 @@ const main = function() {
     near = 1, //ニアークリップの距離（コレより近い領域は表示されない） 
     far = 1000, //ファーークリップの距離（コレより遠い領域は表示されない）
     camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(0, 50, 100);
+  camera.position.set(0, 20, 0);
 
   const renderer = new THREE.WebGLRenderer();
   renderer.setSize(width, height); //レンダリングする箇所
