@@ -1,5 +1,6 @@
 import THREE from 'three.js';
-import config from './config/blocks'
+import perlin from 'perlin-noise';
+import config from './config/blocks';
 
 //const loader = new THREE.TextureLoader();
 
@@ -34,12 +35,14 @@ class Block {
 }
 
 export const createMap = (scene) => {
+  const yArray = perlin.generatePerlinNoise(X_LENGTH, Y_LENGTH);
   for (let i = 0; i < X_LENGTH; i++) {
     for (let j = 0; j < Y_LENGTH; j++) {
-      const type = Math.random() > 0.5 ? 'dirt' : 'cobblestone';
-      const block = new Block(-X_LENGTH*10/2 + i * 10, -5, -Y_LENGTH*10/2 + j * 10, type);
-      block.setMesh();
-      scene.add(block.getMesh());
+        const y = Math.round(yArray[i * Y_LENGTH + j] * 3) * 10 - 25;
+        const type = Math.random() > 0.5 ? 'dirt' : 'cobblestone';
+        const block = new Block(-X_LENGTH*10/2 + i * 10, y, -Y_LENGTH*10/2 + j * 10, type);
+        block.setMesh();
+        scene.add(block.getMesh());
     }
   }
 };

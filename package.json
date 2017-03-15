@@ -18,6 +18,7 @@
   "homepage": "https://github.com/shibe97/minecraft#readme",
   "dependencies": {
     "keycode": "^2.1.8",
+    "perlin-noise": "0.0.1",
     "three.js": "^0.77.1"
   },
   "devDependencies": {
