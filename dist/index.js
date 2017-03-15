@@ -41892,20 +41892,24 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var v = 10; // move unit
+	var rad = Math.PI * 0.1; // rotate unit
+
 	exports.default = function (e, renderer, scene, camera) {
 	  var p = camera.position;
+	  var r = camera.rotation;
 	  switch ((0, _keycode2.default)(e)) {
 	    case 'left':
-	      p.set(p.x - 10, p.y, p.z);
+	      r.set(r.x, r.y + rad, r.z);
 	      break;
 	    case 'right':
-	      p.set(p.x + 10, p.y, p.z);
+	      r.set(r.x, r.y - rad, r.z);
 	      break;
 	    case 'up':
-	      p.set(p.x, p.y, p.z - 10);
+	      p.set(p.x - Math.sin(r.y) * v, p.y, p.z - Math.cos(r.y) * v);
 	      break;
 	    case 'down':
-	      p.set(p.x, p.y, p.z + 10);
+	      p.set(p.x + Math.sin(r.y) * v, p.y, p.z + Math.cos(r.y) * v);
 	      break;
 	  }
 	  renderer.render(scene, camera);
